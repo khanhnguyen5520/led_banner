@@ -1,0 +1,229 @@
+{
+  "@@locale": "en",
+  "appTitle": "LED Banner",
+  "cancel": "Cancel",
+  "save": "Save",
+  "apply": "Apply",
+  "done": "Done",
+  "clear": "Clear",
+  "delete": "Delete",
+  "close": "Close",
+  "reset": "Reset",
+  "play": "Play",
+  "pause": "Pause",
+  "historyTooltip": "History & Templates",
+  "randomizeTooltip": "Random Style",
+  "exportTooltip": "Export MP4",
+  "settingsTooltip": "Settings",
+  "playFullScreen": "Play Full Screen",
+  "messageHint": "Enter your LED message...",
+  "clearText": "Clear text",
+  "drawShortcut": "Draw",
+  "randomStyleApplied": "Random LED style applied!",
+  "tabText": "Text",
+  "tabEffects": "Effects",
+  "tabLedStyle": "LED Dots",
+  "tabBackground": "Background",
+  "tabMediaDraw": "Music & Draw",
+  "scrollDirection": "Scroll Direction",
+  "dirLeft": "Left",
+  "dirStatic": "Static",
+  "dirRight": "Right",
+  "scrollSpeed": "Scroll Speed",
+  "fontSize": "Font Size",
+  "letterSpacing": "Letter Spacing",
+  "textStyle": "Text Style",
+  "bold": "Bold",
+  "italic": "Italic",
+  "mirror": "Mirror",
+  "fontFamily": "Font Family",
+  "fontDefault": "System",
+  "colorMode": "Text Color Mode",
+  "modeSolid": "Solid",
+  "modeGradient": "Gradient",
+  "modeRainbow": "Rainbow",
+  "textColor": "Text Color",
+  "gradientEndColor": "Gradient End Color",
+  "neonGlow": "Neon Glow / Blur",
+  "textOutline": "Text Outline",
+  "outlineColor": "Outline Color",
+  "outlineWidth": "Outline Thickness",
+  "blinkEffect": "Blink Effect",
+  "blinkMode": "Blink Style",
+  "blinkSharp": "Sharp Flash",
+  "blinkPulse": "Smooth Pulse",
+  "blinkSpeed": "Blink Speed",
+  "hzUnit": "{value} Hz",
+  "@hzUnit": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "pixelLedMode": "Pixel LED Matrix",
+  "pixelLedSubtitle": "Simulate classic dot-matrix LED bulbs",
+  "dotShape": "LED Bulb Shape",
+  "shapeCircle": "Circle",
+  "shapeSquare": "Square",
+  "shapeRounded": "Rounded",
+  "shapeDiamond": "Diamond",
+  "dotSize": "LED Dot Size",
+  "grilleOpacity": "Matrix Contrast",
+  "backgroundMode": "Background Type",
+  "bgSolid": "Color",
+  "bgTheme": "Theme",
+  "bgImage": "Photo",
+  "bgVideo": "Video",
+  "backgroundColor": "Background Color",
+  "themeCategory": "Category",
+  "catAll": "All",
+  "catGeneral": "General",
+  "catConcert": "Concert",
+  "catBirthday": "Birthday",
+  "catHoliday": "Holiday",
+  "pickImage": "Choose Photo",
+  "pickVideo": "Choose Video",
+  "clearMedia": "Remove",
+  "selectedFile": "Selected: {name}",
+  "@selectedFile": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "backgroundDim": "Background Dimmer",
+  "themeNeonGrid": "Neon Grid",
+  "themeStarfield": "Starfield",
+  "themeAurora": "Aurora Wave",
+  "themeLaserParty": "Laser Stage",
+  "themeDisco": "Disco Spotlights",
+  "themeConfetti": "Birthday Confetti",
+  "themeBalloons": "Party Balloons",
+  "themeSnow": "Winter Snow",
+  "themeFestiveLights": "Festive Lights",
+  "backgroundMusic": "Background Music",
+  "musicNone": "No Music",
+  "pickAudioFile": "Pick Audio File",
+  "musicVolume": "Music Volume",
+  "trackConcertPulse": "Concert Pulse",
+  "trackBirthdayChime": "Birthday Chime",
+  "trackFestiveBells": "Festive Bells",
+  "trackNeonChill": "Neon Chill",
+  "drawingOverlay": "Freehand & Shape Drawing",
+  "drawingStrokeCount": "{count, plural, =0{No strokes yet} =1{1 stroke on banner} other{{count} strokes on banner}}",
+  "@drawingStrokeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "openDrawingBoard": "Open Drawing Board",
+  "clearDrawings": "Clear Drawings",
+  "quickTemplates": "Quick Templates",
+  "touchLocked": "Touch Locked",
+  "holdToUnlock": "Hold to Unlock",
+  "unlockedMessage": "Controls unlocked",
+  "brightnessLabel": "Brightness",
+  "rotateScreen": "Rotate",
+  "muteAudio": "Mute",
+  "unmuteAudio": "Unmute",
+  "lockTouch": "Lock",
+  "drawingTitle": "Drawing Board",
+  "toolFreehand": "Pen",
+  "toolLine": "Line",
+  "toolRect": "Rect",
+  "toolCircle": "Circle",
+  "toolHeart": "Heart",
+  "toolStar": "Star",
+  "brushColor": "Brush Color",
+  "brushWidth": "Stroke Width",
+  "neonStroke": "Neon Glow",
+  "undo": "Undo",
+  "redo": "Redo",
+  "clearAll": "Clear All",
+  "saveDrawing": "Apply",
+  "historyTitle": "Saved & Templates",
+  "tabHistory": "History",
+  "tabTemplates": "Templates",
+  "emptyHistory": "No saved banners yet",
+  "emptyHistorySubtitle": "Banners you play or save appear here for quick reuse.",
+  "clearHistory": "Clear History",
+  "clearHistoryConfirm": "Remove all unpinned history items?",
+  "savedToHistory": "Saved to history",
+  "pinBanner": "Pin",
+  "unpinBanner": "Unpin",
+  "badgeLed": "LED",
+  "badgeBlink": "Blink",
+  "badgeMusic": "Music",
+  "badgeDraw": "Art",
+  "templateConcert": "Concert Cheering",
+  "templateAirport": "Airport Pickup",
+  "templateBirthday": "Happy Birthday",
+  "templateChristmas": "Merry Christmas",
+  "templateShopSale": "Store Flash Sale",
+  "templateParty": "Club Night Party",
+  "templateTaxi": "Taxi / Need Ride",
+  "templateLove": "Love Confession",
+  "exportTitle": "Export MP4 Video",
+  "resolution": "Resolution",
+  "res720p": "HD 720p (1280×720)",
+  "res480p": "SD 480p (854×480)",
+  "duration": "Loop Duration",
+  "durationAuto": "Auto ({seconds}s)",
+  "@durationAuto": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "secondsShort": "{seconds}s",
+  "@secondsShort": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "videoBgFallbackNote": "Note: Custom video backgrounds are rendered over a dark studio background in MP4 export.",
+  "startExport": "Export MP4",
+  "exportingProgress": "Encoding video... {percent}%",
+  "@exportingProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "exportCancelled": "Export cancelled",
+  "exportSuccess": "Video ready!",
+  "saveToGallery": "Save to Gallery",
+  "shareVideo": "Share MP4",
+  "savedToGallerySuccess": "Saved to Photo Gallery!",
+  "exportUnsupportedPlatform": "Hardware MP4 encoding is available on Android, iOS, and macOS.",
+  "exportFailed": "Export failed: {error}",
+  "@exportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTitle": "Settings",
+  "language": "Language",
+  "langVietnamese": "Tiếng Việt",
+  "langEnglish": "English",
+  "keepScreenAwake": "Keep Screen Awake",
+  "keepScreenAwakeSub": "Prevent screen from sleeping while displaying banner",
+  "forceLandscape": "Auto Landscape Display",
+  "forceLandscapeSub": "Switch to landscape mode when playing full screen",
+  "autoSaveHistory": "Auto-Save to History",
+  "autoSaveHistorySub": "Automatically save banners when played full screen",
+  "pickColorTitle": "Select Color",
+  "hexCodeLabel": "Hex Code",
+  "customColor": "Custom Color",
+  "presetSwatches": "Neon Swatches"
+}
