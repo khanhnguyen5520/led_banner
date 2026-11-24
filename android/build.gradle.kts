@@ -19,6 +19,29 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+subprojects {
+    if (project.name != "app") {
+        project.afterEvaluate {
+            plugins.withId("com.android.library") {
+                val androidExt = extensions.findByName("android") ?: return@withId
+                val getCompileSdk = androidExt.javaClass.methods.firstOrNull {
+                    it.name == "getCompileSdk" && it.parameterCount == 0
+                }
+                val currentSdk = (getCompileSdk?.invoke(androidExt) as? Int) ?: 0
+                if (currentSdk < 36) {
+                    val setCompileSdk = androidExt.javaClass.methods.firstOrNull {
+                        it.name == "setCompileSdk" &&
+                            it.parameterCount == 1 &&
+                            (it.parameterTypes[0] == Int::class.java ||
+                                it.parameterTypes[0] == java.lang.Integer::class.java)
+                    }
+                    setCompileSdk?.invoke(androidExt, 36)
+                }
+            }
+        }
+    }
+}
+
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
