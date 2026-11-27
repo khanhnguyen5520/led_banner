@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../data/services/video_export_service.dart';
 import '../../../../domain/models/banner_config.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/led_banner_painter.dart';
 
 /// Opens the MP4 video export modal dialog for the given [config].
@@ -141,9 +140,9 @@ class _ExportVideoDialogState extends State<_ExportVideoDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return AlertDialog(
-      backgroundColor: AppTheme.surfaceCard,
       title: Text(l10n.exportTitle),
       content: SizedBox(
         width: 360,
@@ -156,7 +155,7 @@ class _ExportVideoDialogState extends State<_ExportVideoDialog> {
               Text(
                 l10n.resolution,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: AppTheme.textMuted,
+                      color: colorScheme.onSurfaceVariant,
                     ),
               ),
               const SizedBox(height: 8),
@@ -180,7 +179,7 @@ class _ExportVideoDialogState extends State<_ExportVideoDialog> {
               Text(
                 l10n.duration,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: AppTheme.textMuted,
+                      color: colorScheme.onSurfaceVariant,
                     ),
               ),
               const SizedBox(height: 8),
@@ -204,7 +203,7 @@ class _ExportVideoDialogState extends State<_ExportVideoDialog> {
                 Text(
                   l10n.videoBgFallbackNote,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppTheme.textMuted,
+                        color: colorScheme.onSurfaceVariant,
                       ),
                 ),
               ],
@@ -222,9 +221,9 @@ class _ExportVideoDialogState extends State<_ExportVideoDialog> {
               ),
             ],
             if (_exportedPath != null) ...<Widget>[
-              const Icon(
+              Icon(
                 Icons.check_circle_rounded,
-                color: AppTheme.primaryCyan,
+                color: colorScheme.primary,
                 size: 44,
               ),
               const SizedBox(height: 10),

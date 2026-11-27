@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'app.dart';
 import 'data/repositories/banner_repository.dart';
@@ -12,6 +13,9 @@ import 'ui/features/editor/view_models/editor_view_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(const <DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+  ]);
 
   final storageService = LocalStorageService();
   final repository = BannerRepository(storageService: storageService);

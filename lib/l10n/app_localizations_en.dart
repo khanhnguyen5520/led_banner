@@ -534,6 +534,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get langEnglish => 'English';
 
   @override
+  String get themeMode => 'Appearance';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
   String get keepScreenAwake => 'Keep Screen Awake';
 
   @override

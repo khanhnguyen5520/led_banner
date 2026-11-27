@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:led_banner/gen/assets.gen.dart';
 
 import '../../../../data/services/audio_service.dart';
 import '../../../../data/services/brightness_service.dart';
@@ -7,7 +10,6 @@ import '../../../../data/services/wakelock_service.dart';
 import '../../../../domain/models/banner_config.dart';
 import '../../../../domain/models/preset_templates.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/led_banner_canvas.dart';
 import '../../draw/views/drawing_screen.dart';
 import '../../export/views/export_video_dialog.dart';
@@ -122,6 +124,7 @@ class _EditorScreenState extends State<EditorScreen>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return ListenableBuilder(
       listenable: widget.viewModel,
@@ -136,11 +139,11 @@ class _EditorScreenState extends State<EditorScreen>
                 Container(
                   width: 10,
                   height: 10,
-                  decoration: const BoxDecoration(
-                    color: AppTheme.primaryCyan,
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary,
                     shape: BoxShape.circle,
                     boxShadow: <BoxShadow>[
-                      BoxShadow(color: AppTheme.primaryCyan, blurRadius: 8),
+                      BoxShadow(color: colorScheme.primary, blurRadius: 8),
                     ],
                   ),
                 ),
@@ -158,7 +161,7 @@ class _EditorScreenState extends State<EditorScreen>
               IconButton(
                 tooltip: l10n.historyTooltip,
                 onPressed: _openHistory,
-                icon: const Icon(Icons.history_rounded),
+                icon: _SvgIcon(Assets.icons.clockFading),
               ),
               IconButton(
                 tooltip: l10n.randomizeTooltip,
@@ -173,7 +176,7 @@ class _EditorScreenState extends State<EditorScreen>
                       ),
                     );
                 },
-                icon: const Icon(Icons.casino_rounded),
+                icon: _SvgIcon(Assets.icons.dices),
               ),
               IconButton(
                 tooltip: l10n.exportTooltip,
@@ -182,12 +185,12 @@ class _EditorScreenState extends State<EditorScreen>
                   config: config,
                   exportService: widget.videoExportService,
                 ),
-                icon: const Icon(Icons.movie_creation_outlined),
+                icon: _SvgIcon(Assets.icons.imagePlay),
               ),
               IconButton(
                 tooltip: l10n.settingsTooltip,
                 onPressed: () => showSettingsSheet(context, vm),
-                icon: const Icon(Icons.settings_outlined),
+                icon: _SvgIcon(Assets.icons.settings2),
               ),
             ],
           ),
@@ -204,13 +207,14 @@ class _EditorScreenState extends State<EditorScreen>
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(18),
                         border: Border.all(
-                          color: AppTheme.primaryCyan.withValues(alpha: 0.45),
+                          color: colorScheme.primary.withValues(alpha: 0.45),
                           width: 1.5,
                         ),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                            color: Color(config.textColorValue)
-                                .withValues(alpha: 0.16),
+                            color: Color(
+                              config.textColorValue,
+                            ).withValues(alpha: 0.16),
                             blurRadius: 18,
                             spreadRadius: 1,
                           ),
@@ -234,9 +238,11 @@ class _EditorScreenState extends State<EditorScreen>
                             child: Row(
                               children: <Widget>[
                                 _PreviewOverlayButton(
-                                  icon: vm.isPreviewPlaying
-                                      ? Icons.pause_rounded
-                                      : Icons.play_arrow_rounded,
+                                  icon: Icon(
+                                    vm.isPreviewPlaying
+                                        ? Icons.pause_rounded
+                                        : Icons.play_arrow_rounded,
+                                  ),
                                   tooltip: vm.isPreviewPlaying
                                       ? l10n.pause
                                       : l10n.play,
@@ -244,7 +250,7 @@ class _EditorScreenState extends State<EditorScreen>
                                 ),
                                 const SizedBox(width: 6),
                                 _PreviewOverlayButton(
-                                  icon: Icons.brush_rounded,
+                                  icon: _SvgIcon(Assets.icons.pencil, size: 18),
                                   tooltip: l10n.drawShortcut,
                                   onPressed: _openDrawingBoard,
                                 ),
@@ -263,7 +269,10 @@ class _EditorScreenState extends State<EditorScreen>
                                 visualDensity: VisualDensity.compact,
                               ),
                               onPressed: _openFullScreenPlayer,
-                              icon: const Icon(Icons.fullscreen_rounded, size: 18),
+                              icon: const Icon(
+                                Icons.fullscreen_rounded,
+                                size: 18,
+                              ),
                               label: Text(l10n.playFullScreen),
                             ),
                           ),
@@ -286,7 +295,13 @@ class _EditorScreenState extends State<EditorScreen>
                         textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           hintText: l10n.messageHint,
-                          prefixIcon: const Icon(Icons.text_fields_rounded),
+                          prefixIcon: UnconstrainedBox(
+                            child: _SvgIcon(
+                              Assets.icons.aLargeSmall,
+                              size: 20,
+                              color: colorScheme.onSurfaceVariant,
+                            ),
+                          ),
                           suffixIcon: config.text.isNotEmpty
                               ? IconButton(
                                   tooltip: l10n.clearText,
@@ -339,55 +354,34 @@ class _EditorScreenState extends State<EditorScreen>
               const SizedBox(height: 8),
 
               // 5-Tab Studio Controls.
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(color: AppTheme.borderSubtle),
-                    bottom: BorderSide(color: AppTheme.borderSubtle),
-                  ),
-                ),
-                child: TabBar(
-                  controller: _tabController,
-                  isScrollable: true,
-                  tabAlignment: TabAlignment.start,
-                  indicatorColor: AppTheme.primaryCyan,
-                  labelColor: AppTheme.primaryCyan,
-                  unselectedLabelColor: AppTheme.textMuted,
-                  tabs: <Tab>[
-                    Tab(
-                      icon: const Icon(Icons.title_rounded, size: 18),
-                      text: l10n.tabText,
-                    ),
-                    Tab(
-                      icon: const Icon(Icons.auto_fix_high_rounded, size: 18),
-                      text: l10n.tabEffects,
-                    ),
-                    Tab(
-                      icon: const Icon(Icons.blur_on_rounded, size: 18),
-                      text: l10n.tabLedStyle,
-                    ),
-                    Tab(
-                      icon: const Icon(Icons.wallpaper_rounded, size: 18),
-                      text: l10n.tabBackground,
-                    ),
-                    Tab(
-                      icon: const Icon(Icons.music_note_rounded, size: 18),
-                      text: l10n.tabMediaDraw,
-                    ),
-                  ],
-                ),
-              ),
               Expanded(
-                child: TabBarView(
-                  controller: _tabController,
+                child: Stack(
                   children: <Widget>[
-                    TextTab(viewModel: vm),
-                    EffectsTab(viewModel: vm),
-                    LedStyleTab(viewModel: vm),
-                    BackgroundTab(viewModel: vm),
-                    MediaDrawTab(
-                      viewModel: vm,
-                      onOpenDrawingBoard: _openDrawingBoard,
+                    TabBarView(
+                      controller: _tabController,
+                      children: <Widget>[
+                        TextTab(viewModel: vm),
+                        EffectsTab(viewModel: vm),
+                        LedStyleTab(viewModel: vm),
+                        BackgroundTab(viewModel: vm),
+                        MediaDrawTab(
+                          viewModel: vm,
+                          onOpenDrawingBoard: _openDrawingBoard,
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      left: 16,
+                      right: 16,
+                      bottom: 0,
+                      child: SafeArea(
+                        top: false,
+                        minimum: const EdgeInsets.only(bottom: 12),
+                        child: _StudioPillTabBar(
+                          controller: _tabController,
+                          l10n: l10n,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -407,7 +401,7 @@ class _PreviewOverlayButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  final IconData icon;
+  final Widget icon;
   final String tooltip;
   final VoidCallback onPressed;
 
@@ -415,15 +409,164 @@ class _PreviewOverlayButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.black.withValues(alpha: 0.65),
-      shape: const CircleBorder(
-        side: BorderSide(color: Colors.white24),
-      ),
+      shape: const CircleBorder(side: BorderSide(color: Colors.white24)),
       child: IconButton(
         tooltip: tooltip,
         onPressed: onPressed,
-        icon: Icon(icon, size: 18, color: Colors.white),
+        icon: IconTheme(
+          data: const IconThemeData(color: Colors.white, size: 18),
+          child: icon,
+        ),
         visualDensity: VisualDensity.compact,
       ),
+    );
+  }
+}
+
+class _StudioPillTabBar extends StatelessWidget {
+  const _StudioPillTabBar({required this.controller, required this.l10n});
+
+  final TabController controller;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    final tabItems = <({SvgGenImage icon, String label})>[
+      (icon: Assets.icons.aLargeSmall, label: l10n.tabText),
+      (icon: Assets.icons.wandSparkles, label: l10n.tabEffects),
+      (icon: Assets.icons.lightbulb, label: l10n.tabLedStyle),
+      (icon: Assets.icons.image, label: l10n.tabBackground),
+      (icon: Assets.icons.music4, label: l10n.tabMediaDraw),
+    ];
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(999),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.42 : 0.14),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(999),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          child: Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(999),
+              color: isDark
+                  ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.72)
+                  : colorScheme.surfaceContainerHighest.withValues(alpha: 0.78),
+              border: Border.all(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.14)
+                    : Colors.white.withValues(alpha: 0.85),
+                width: isDark ? 1 : 1.2,
+              ),
+            ),
+            child: AnimatedBuilder(
+              animation: controller,
+              builder: (context, _) {
+                final selectedIndex = controller.index;
+                return TabBar(
+                  controller: controller,
+                  isScrollable: false,
+                  dividerColor: Colors.transparent,
+                  dividerHeight: 0,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 2),
+                  splashBorderRadius: BorderRadius.circular(999),
+                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+                  indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(999),
+                    color: isDark
+                        ? colorScheme.surface
+                        : Colors.white.withValues(alpha: 0.94),
+                    border: Border.all(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.14)
+                          : Colors.white,
+                    ),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.black.withValues(
+                          alpha: isDark ? 0.30 : 0.08,
+                        ),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  tabs: List<Widget>.generate(tabItems.length, (index) {
+                    final item = tabItems[index];
+                    final isSelected = index == selectedIndex;
+                    return Tab(
+                      height: 54,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          _SvgIcon(
+                            item.icon,
+                            size: 20,
+                            color: isSelected
+                                ? colorScheme.primary
+                                : colorScheme.onSurfaceVariant,
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            item.label,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: isSelected
+                                  ? FontWeight.w600
+                                  : FontWeight.w500,
+                              color: isSelected
+                                  ? colorScheme.onSurface
+                                  : colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                );
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SvgIcon extends StatelessWidget {
+  const _SvgIcon(this.asset, {this.size = 22, this.color});
+
+  final SvgGenImage asset;
+  final double size;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    final effectiveColor =
+        color ??
+        IconTheme.of(context).color ??
+        Theme.of(context).colorScheme.onSurface;
+    return asset.svg(
+      width: size,
+      height: size,
+      colorFilter: ColorFilter.mode(effectiveColor, BlendMode.srcIn),
     );
   }
 }

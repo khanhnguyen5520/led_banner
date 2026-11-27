@@ -533,6 +533,18 @@ class AppLocalizationsVi extends AppLocalizations {
   String get langEnglish => 'English';
 
   @override
+  String get themeMode => 'Giao diện';
+
+  @override
+  String get themeSystem => 'Hệ thống';
+
+  @override
+  String get themeLight => 'Sáng';
+
+  @override
+  String get themeDark => 'Tối';
+
+  @override
   String get keepScreenAwake => 'Luôn bật sáng màn hình';
 
   @override

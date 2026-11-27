@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../domain/models/banner_config.dart';
 import '../../../../domain/models/preset_templates.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/l10n_helper.dart';
 import '../../../core/widgets/led_banner_canvas.dart';
 import '../../editor/view_models/editor_view_model.dart';
@@ -86,6 +85,7 @@ class _HistoryListTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final items = viewModel.history;
 
     if (items.isEmpty) {
@@ -95,10 +95,10 @@ class _HistoryListTab extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Icon(
+              Icon(
                 Icons.history_toggle_off_rounded,
                 size: 54,
-                color: AppTheme.textMuted,
+                color: colorScheme.onSurfaceVariant,
               ),
               const SizedBox(height: 12),
               Text(
@@ -112,7 +112,7 @@ class _HistoryListTab extends StatelessWidget {
               Text(
                 l10n.emptyHistorySubtitle,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppTheme.textMuted,
+                      color: colorScheme.onSurfaceVariant,
                     ),
                 textAlign: TextAlign.center,
               ),
@@ -175,17 +175,17 @@ class _HistoryListTab extends StatelessWidget {
                               : Icons.push_pin_outlined,
                           size: 20,
                           color: item.isPinned
-                              ? AppTheme.primaryCyan
-                              : AppTheme.textMuted,
+                              ? colorScheme.primary
+                              : colorScheme.onSurfaceVariant,
                         ),
                       ),
                       IconButton(
                         tooltip: l10n.delete,
                         onPressed: () => viewModel.deleteHistoryItem(item.id),
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.delete_outline_rounded,
                           size: 20,
-                          color: AppTheme.textMuted,
+                          color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -261,10 +261,10 @@ class _TemplatesGridTab extends StatelessWidget {
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.arrow_forward_ios_rounded,
                         size: 16,
-                        color: AppTheme.textMuted,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ],
                   ),
@@ -285,16 +285,17 @@ class _FeaturePill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: AppTheme.surfaceElevated,
+        color: colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppTheme.borderSubtle),
+        border: Border.all(color: colorScheme.outline),
       ),
       child: Text(
         label,
-        style: const TextStyle(fontSize: 11, color: AppTheme.textMuted),
+        style: TextStyle(fontSize: 11, color: colorScheme.onSurfaceVariant),
       ),
     );
   }

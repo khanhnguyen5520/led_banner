@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../domain/models/banner_config.dart';
 import '../../../../domain/models/preset_templates.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/color_picker_sheet.dart';
 import '../../../core/widgets/led_banner_canvas.dart';
 
@@ -113,6 +112,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final previewDrawings = <DrawingStroke>[
       ..._strokes,
       ?_activeStroke,
@@ -166,7 +166,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
-                              color: AppTheme.primaryCyan.withValues(alpha: 0.45),
+                              color: colorScheme.primary.withValues(alpha: 0.45),
                               width: 1.5,
                             ),
                           ),
@@ -193,9 +193,9 @@ class _DrawingScreenState extends State<DrawingScreen> {
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
-              decoration: const BoxDecoration(
-                color: AppTheme.surfaceCard,
-                border: Border(top: BorderSide(color: AppTheme.borderSubtle)),
+              decoration: BoxDecoration(
+                color: colorScheme.surface,
+                border: Border(top: BorderSide(color: colorScheme.outline)),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -283,8 +283,9 @@ class _DrawingScreenState extends State<DrawingScreen> {
                                     color: color,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color:
-                                          selected ? Colors.white : Colors.white24,
+                                      color: selected
+                                          ? colorScheme.onSurface
+                                          : colorScheme.outline,
                                       width: selected ? 2.5 : 1,
                                     ),
                                   ),

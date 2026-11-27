@@ -3,9 +3,8 @@ import 'package:flutter/services.dart';
 
 import '../../../domain/models/preset_templates.dart';
 import '../../../l10n/app_localizations.dart';
-import '../theme/app_theme.dart';
 
-/// Opens a dark studio color picker bottom sheet with swatches, HSV pad, and HEX input.
+/// Opens a theme-aware studio color picker bottom sheet with swatches, HSV pad, and HEX input.
 Future<Color?> showColorPickerSheet(
   BuildContext context, {
   required Color initialColor,
@@ -15,7 +14,6 @@ Future<Color?> showColorPickerSheet(
   return showModalBottomSheet<Color>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: AppTheme.surfaceCard,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
     ),
@@ -87,6 +85,7 @@ class _ColorPickerSheetState extends State<_ColorPickerSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final currentColor = _hsv.toColor();
 
     return Padding(
@@ -106,7 +105,7 @@ class _ColorPickerSheetState extends State<_ColorPickerSheet> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: AppTheme.borderSubtle,
+                  color: colorScheme.outline,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -120,7 +119,7 @@ class _ColorPickerSheetState extends State<_ColorPickerSheet> {
                   decoration: BoxDecoration(
                     color: currentColor,
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white24, width: 2),
+                    border: Border.all(color: colorScheme.outline, width: 2),
                     boxShadow: <BoxShadow>[
                       BoxShadow(
                         color: currentColor.withValues(alpha: 0.45),
@@ -155,7 +154,7 @@ class _ColorPickerSheetState extends State<_ColorPickerSheet> {
               style: Theme.of(context)
                   .textTheme
                   .labelMedium
-                  ?.copyWith(color: AppTheme.textMuted),
+                  ?.copyWith(color: colorScheme.onSurfaceVariant),
             ),
             const SizedBox(height: 10),
             Wrap(
@@ -172,7 +171,9 @@ class _ColorPickerSheetState extends State<_ColorPickerSheet> {
                       color: swatch,
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: selected ? Colors.white : Colors.white24,
+                        color: selected
+                            ? colorScheme.onSurface
+                            : colorScheme.outline,
                         width: selected ? 2.5 : 1,
                       ),
                     ),
@@ -209,7 +210,7 @@ class _ColorPickerSheetState extends State<_ColorPickerSheet> {
               data: SliderTheme.of(context).copyWith(
                 trackHeight: 12,
                 activeTrackColor: HSVColor.fromAHSV(1, _hsv.hue, 1, 1).toColor(),
-                inactiveTrackColor: AppTheme.surfaceElevated,
+                inactiveTrackColor: colorScheme.surfaceContainerHighest,
                 thumbColor: Colors.white,
               ),
               child: Slider(

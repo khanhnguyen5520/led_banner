@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../../domain/models/banner_config.dart';
 import '../../../../../domain/models/preset_templates.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/l10n_helper.dart';
 import '../../../../core/widgets/led_banner_canvas.dart';
 import '../../view_models/editor_view_model.dart';
@@ -23,10 +22,16 @@ class MediaDrawTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final config = viewModel.config;
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
+      padding: EdgeInsets.fromLTRB(
+        16,
+        14,
+        16,
+        MediaQuery.paddingOf(context).bottom + 96,
+      ),
       children: <Widget>[
         EditorSectionTitle(
           title: l10n.backgroundMusic,
@@ -37,7 +42,7 @@ class MediaDrawTab extends StatelessWidget {
                     viewModel.isPreviewMusicPlaying
                         ? Icons.stop_circle_rounded
                         : Icons.play_circle_fill_rounded,
-                    color: AppTheme.primaryCyan,
+                    color: colorScheme.primary,
                   ),
                 )
               : null,
@@ -100,7 +105,7 @@ class MediaDrawTab extends StatelessWidget {
               children: <Widget>[
                 Text(
                   l10n.drawingStrokeCount(config.drawings.length),
-                  style: const TextStyle(color: AppTheme.textMuted),
+                  style: TextStyle(color: colorScheme.onSurfaceVariant),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -149,7 +154,7 @@ class MediaDrawTab extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: AppTheme.borderSubtle),
+                            border: Border.all(color: colorScheme.outline),
                           ),
                           child: LedBannerCanvas(
                             config: template.config,

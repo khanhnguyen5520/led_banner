@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../domain/models/banner_config.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/font_helper.dart';
 import '../../view_models/editor_view_model.dart';
 import 'editor_section_widgets.dart';
@@ -16,10 +15,16 @@ class TextTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final config = viewModel.config;
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
+      padding: EdgeInsets.fromLTRB(
+        16,
+        14,
+        16,
+        MediaQuery.paddingOf(context).bottom + 96,
+      ),
       children: <Widget>[
         EditorSectionTitle(title: l10n.scrollDirection),
         const SizedBox(height: 10),
@@ -125,7 +130,7 @@ class TextTab extends StatelessWidget {
                 isBold: config.isBold,
                 isItalic: config.isItalic,
                 letterSpacing: 0.5,
-                color: selected ? AppTheme.primaryCyan : AppTheme.textPrimary,
+                color: selected ? colorScheme.primary : colorScheme.onSurface,
               );
 
               return InkWell(
@@ -136,13 +141,13 @@ class TextTab extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   decoration: BoxDecoration(
                     color: selected
-                        ? AppTheme.primaryCyan.withValues(alpha: 0.14)
-                        : AppTheme.surfaceCard,
+                        ? colorScheme.primary.withValues(alpha: 0.14)
+                        : colorScheme.surface,
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
                       color: selected
-                          ? AppTheme.primaryCyan
-                          : AppTheme.borderSubtle,
+                          ? colorScheme.primary
+                          : colorScheme.outline,
                       width: selected ? 1.5 : 1,
                     ),
                   ),
@@ -160,8 +165,8 @@ class TextTab extends StatelessWidget {
                         displayLabel,
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
                               color: selected
-                                  ? AppTheme.primaryCyan
-                                  : AppTheme.textMuted,
+                                  ? colorScheme.primary
+                                  : colorScheme.onSurfaceVariant,
                             ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

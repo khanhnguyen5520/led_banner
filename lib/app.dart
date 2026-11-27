@@ -5,12 +5,13 @@ import 'data/services/audio_service.dart';
 import 'data/services/brightness_service.dart';
 import 'data/services/video_export_service.dart';
 import 'data/services/wakelock_service.dart';
+import 'domain/models/app_settings.dart';
 import 'l10n/app_localizations.dart';
 import 'ui/core/theme/app_theme.dart';
 import 'ui/features/editor/view_models/editor_view_model.dart';
 import 'ui/features/editor/views/editor_screen.dart';
 
-/// Root Material application configured with dark studio theme and localization.
+/// Root Material application configured with adaptive light/dark studio theme and localization.
 class LedBannerApp extends StatelessWidget {
   const LedBannerApp({
     super.key,
@@ -35,7 +36,13 @@ class LedBannerApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'LED Banner',
-          theme: AppTheme.darkTheme,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: switch (viewModel.settings.themeMode) {
+            AppThemeMode.system => ThemeMode.system,
+            AppThemeMode.light => ThemeMode.light,
+            AppThemeMode.dark => ThemeMode.dark,
+          },
           locale: Locale(viewModel.settings.localeCode),
           localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
             AppLocalizations.delegate,

@@ -192,12 +192,22 @@ void main() {
       await viewModel.updateSettings(
         const AppSettings(
           localeCode: 'en',
+          themeMode: AppThemeMode.light,
           keepScreenAwake: false,
           forceLandscape: false,
           autoSaveHistory: false,
         ),
       );
       expect(viewModel.settings.localeCode, 'en');
+      expect(viewModel.settings.themeMode, AppThemeMode.light);
+
+      final roundTripped = AppSettings.fromJson(viewModel.settings.toJson());
+      expect(roundTripped.themeMode, AppThemeMode.light);
+      expect(AppSettings.fromJson(const <String, dynamic>{}).themeMode, AppThemeMode.system);
+      expect(
+        AppSettings.fromJson(const <String, dynamic>{'themeMode': 'invalid'}).themeMode,
+        AppThemeMode.system,
+      );
       expect(viewModel.settings.keepScreenAwake, isFalse);
     });
   });

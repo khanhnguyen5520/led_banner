@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../../domain/models/banner_config.dart';
 import '../../../../../domain/models/preset_templates.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/color_picker_sheet.dart';
 import '../../../../core/widgets/l10n_helper.dart';
 import '../../view_models/editor_view_model.dart';
@@ -25,10 +24,16 @@ class _BackgroundTabState extends State<BackgroundTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final config = widget.viewModel.config;
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
+      padding: EdgeInsets.fromLTRB(
+        16,
+        14,
+        16,
+        MediaQuery.paddingOf(context).bottom + 96,
+      ),
       children: <Widget>[
         EditorSectionTitle(title: l10n.backgroundMode),
         const SizedBox(height: 10),
@@ -76,7 +81,7 @@ class _BackgroundTabState extends State<BackgroundTab> {
                     color: color,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: selected ? AppTheme.primaryCyan : Colors.white24,
+                      color: selected ? colorScheme.primary : colorScheme.outline,
                       width: selected ? 2.5 : 1,
                     ),
                   ),
@@ -163,8 +168,8 @@ class _BackgroundTabState extends State<BackgroundTab> {
                     ),
                     border: Border.all(
                       color: selected
-                          ? AppTheme.primaryCyan
-                          : AppTheme.borderSubtle,
+                          ? colorScheme.primary
+                          : colorScheme.outline,
                       width: selected ? 2 : 1,
                     ),
                   ),
@@ -303,7 +308,7 @@ class _MediaPickerCard extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
-                    ?.copyWith(color: AppTheme.primaryCyan),
+                    ?.copyWith(color: Theme.of(context).colorScheme.primary),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

@@ -9,6 +9,7 @@ import 'package:led_banner/data/services/local_storage_service.dart';
 import 'package:led_banner/data/services/media_picker_service.dart';
 import 'package:led_banner/data/services/video_export_service.dart';
 import 'package:led_banner/data/services/wakelock_service.dart';
+import 'package:led_banner/domain/models/app_settings.dart';
 import 'package:led_banner/domain/models/banner_config.dart';
 import 'package:led_banner/ui/features/draw/views/drawing_screen.dart';
 import 'package:led_banner/ui/features/editor/view_models/editor_view_model.dart';
@@ -187,7 +188,7 @@ void main() {
     expect(find.byType(DrawingScreen), findsNothing);
 
     // Open History & Templates screen and apply a template.
-    await tapAndPump(tester, find.byIcon(Icons.history_rounded));
+    await tapAndPump(tester, find.byTooltip('Lịch sử & Mẫu'));
     expect(find.byType(HistoryScreen), findsOneWidget);
     await tapAndPump(tester, find.text('Mẫu sẵn'));
     expect(find.text('Cổ vũ Concert'), findsOneWidget);
@@ -196,17 +197,44 @@ void main() {
     expect(viewModel.config.text, contains('SARANGHAE'));
 
     // Open Export MP4 dialog and run mocked export.
-    await tapAndPump(tester, find.byIcon(Icons.movie_creation_outlined));
+    await tapAndPump(tester, find.byTooltip('Xuất video MP4'));
     expect(find.text('Xuất video MP4'), findsOneWidget);
     await tapAndPump(tester, find.text('Bắt đầu xuất MP4'));
     expect(find.text('Đã tạo video xong!'), findsOneWidget);
     await tapAndPump(tester, find.text('Đóng'));
 
-    // Open Settings and change language to English.
-    await tapAndPump(tester, find.byIcon(Icons.settings_outlined));
+    // Open Settings and change language to English and theme mode Light/Dark/System.
+    await tapAndPump(tester, find.byTooltip('Cài đặt'));
     await tapAndPump(tester, find.text('English'));
     expect(find.text('Settings'), findsOneWidget);
-    await tapAndPump(tester, find.text('Done'));
+
+    await tester.tap(find.text('Light'));
+    await tester.pump(const Duration(milliseconds: 20));
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    await pumpFrames(tester);
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(viewModel.settings.themeMode, AppThemeMode.light);
+    expect(
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+      ThemeMode.light,
+    );
+
+    await tapAndPump(tester, find.text('Dark'));
+    expect(viewModel.settings.themeMode, AppThemeMode.dark);
+    expect(
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+      ThemeMode.dark,
+    );
+
+    await tapAndPump(tester, find.text('System'));
+    expect(viewModel.settings.themeMode, AppThemeMode.system);
+    expect(
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+      ThemeMode.system,
+    );
+
+    await tester.tapAt(const Offset(20, 20));
+    await pumpFrames(tester);
     expect(find.text('LED Banner'), findsOneWidget);
   });
 

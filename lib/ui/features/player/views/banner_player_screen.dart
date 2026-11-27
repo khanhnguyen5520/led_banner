@@ -78,6 +78,8 @@ class _BannerPlayerScreenState extends State<BannerPlayerScreen> {
           DeviceOrientation.landscapeLeft,
           DeviceOrientation.landscapeRight,
         ]);
+      } else {
+        await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
       }
     } catch (_) {}
   }
@@ -227,7 +229,9 @@ class _BannerPlayerScreenState extends State<BannerPlayerScreen> {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge),
     );
     unawaited(
-      SystemChrome.setPreferredOrientations(DeviceOrientation.values),
+      SystemChrome.setPreferredOrientations(const <DeviceOrientation>[
+        DeviceOrientation.portraitUp,
+      ]),
     );
     super.dispose();
   }

@@ -19,7 +19,12 @@ class EffectsTab extends StatelessWidget {
     final config = viewModel.config;
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 24),
+      padding: EdgeInsets.fromLTRB(
+        16,
+        14,
+        16,
+        MediaQuery.paddingOf(context).bottom + 96,
+      ),
       children: <Widget>[
         EditorSectionTitle(title: l10n.colorMode),
         const SizedBox(height: 10),

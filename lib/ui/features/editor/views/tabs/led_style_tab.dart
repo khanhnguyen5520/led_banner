@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../domain/models/banner_config.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../view_models/editor_view_model.dart';
 import 'editor_section_widgets.dart';
 
@@ -15,10 +14,16 @@ class LedStyleTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
     final config = viewModel.config;
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 24),
+      padding: EdgeInsets.fromLTRB(
+        16,
+        10,
+        16,
+        MediaQuery.paddingOf(context).bottom + 96,
+      ),
       children: <Widget>[
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
@@ -28,7 +33,7 @@ class LedStyleTab extends StatelessWidget {
           ),
           subtitle: Text(
             l10n.pixelLedSubtitle,
-            style: const TextStyle(color: AppTheme.textMuted, fontSize: 12),
+            style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 12),
           ),
           value: config.pixelLedEnabled,
           onChanged: viewModel.setPixelLedEnabled,
@@ -60,13 +65,13 @@ class LedStyleTab extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
                         color: selected
-                            ? AppTheme.primaryCyan.withValues(alpha: 0.14)
-                            : AppTheme.surfaceCard,
+                            ? colorScheme.primary.withValues(alpha: 0.14)
+                            : colorScheme.surface,
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(
                           color: selected
-                              ? AppTheme.primaryCyan
-                              : AppTheme.borderSubtle,
+                              ? colorScheme.primary
+                              : colorScheme.outline,
                           width: selected ? 1.5 : 1,
                         ),
                       ),
@@ -79,8 +84,8 @@ class LedStyleTab extends StatelessWidget {
                               painter: _DotShapeIconPainter(
                                 shape: shape,
                                 color: selected
-                                    ? AppTheme.primaryCyan
-                                    : AppTheme.textPrimary,
+                                    ? colorScheme.primary
+                                    : colorScheme.onSurface,
                               ),
                             ),
                           ),
@@ -89,8 +94,8 @@ class LedStyleTab extends StatelessWidget {
                             label,
                             style: Theme.of(context).textTheme.labelSmall?.copyWith(
                                   color: selected
-                                      ? AppTheme.primaryCyan
-                                      : AppTheme.textMuted,
+                                      ? colorScheme.primary
+                                      : colorScheme.onSurfaceVariant,
                                   fontWeight: FontWeight.w600,
                                 ),
                             maxLines: 1,

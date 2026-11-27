@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_theme.dart';
-
-/// Shared dark-studio section header used across editor tabs.
+/// Shared studio section header used across editor tabs.
 class EditorSectionTitle extends StatelessWidget {
   const EditorSectionTitle({
     super.key,
@@ -15,6 +13,7 @@ class EditorSectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Row(
       children: <Widget>[
         Expanded(
@@ -22,7 +21,7 @@ class EditorSectionTitle extends StatelessWidget {
             title,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: AppTheme.textPrimary,
+                  color: colorScheme.onSurface,
                 ),
           ),
         ),
@@ -55,6 +54,7 @@ class EditorSliderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -64,20 +64,20 @@ class EditorSliderTile extends StatelessWidget {
             Text(
               label,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppTheme.textPrimary,
+                    color: colorScheme.onSurface,
                     fontWeight: FontWeight.w500,
                   ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
-                color: AppTheme.surfaceElevated,
+                color: colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
                 valueLabel,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: AppTheme.primaryCyan,
+                      color: colorScheme.primary,
                       fontWeight: FontWeight.w700,
                     ),
               ),
@@ -111,15 +111,16 @@ class ColorPickButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
-          color: AppTheme.surfaceElevated,
+          color: colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppTheme.borderSubtle),
+          border: Border.all(color: colorScheme.outline),
         ),
         child: Row(
           children: <Widget>[
@@ -129,7 +130,7 @@ class ColorPickButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: color,
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white30, width: 1.5),
+                border: Border.all(color: colorScheme.outline, width: 1.5),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: color.withValues(alpha: 0.4),
@@ -149,7 +150,11 @@ class ColorPickButton extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const Icon(Icons.colorize_rounded, size: 18, color: AppTheme.textMuted),
+            Icon(
+              Icons.colorize_rounded,
+              size: 18,
+              color: colorScheme.onSurfaceVariant,
+            ),
           ],
         ),
       ),
